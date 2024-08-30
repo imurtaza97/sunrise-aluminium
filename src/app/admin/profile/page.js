@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AdminLayout from '../dashboardLayout'
 import { useUser } from '@/context/UserContext';
 import Alert from '../../components/Alert';
+import Image from 'next/image';
 
 const Profile = () => {
   const userData = useUser();
@@ -182,13 +183,13 @@ const Profile = () => {
           <form className="mt-8 space-y-6" onSubmit={updateProfileImage}>
             <div className='w-full flex justify-center'>
               {selectedImage ? (
-                <img
+                <Image
                   src={URL.createObjectURL(selectedImage)}
                   alt="Profile"
                   className="w-24 h-24 rounded-full object-cover"
                 />
               ) : existingImage ? (
-                <img
+                <Image
                   src={existingImage}
                   alt="Profile"
                   className="w-24 h-24 rounded-full object-cover"

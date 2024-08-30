@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AdminLayout from '../dashboardLayout';
 import Link from 'next/link';
 import Alert from '../../components/Alert';
+import Image from 'next/image';
 
 const Users = () => {
     const [isAddAdmin, setIsAddAdmin] = useState(false);
@@ -246,7 +247,7 @@ const Users = () => {
                                             {!admin.image ? (<span className="w-10 h-10 me-4 font-extralight rounded-md bg-gray-700 text-gray-100 flex items-center justify-center text-sm">
                                                 {admin.name.charAt(0) || 'A'}
                                             </span>) : (
-                                                <img src={admin.image} alt="Profile" className="w-10 h-10 rounded-md me-4 object-cover" />
+                                                <Image src={admin.image} alt="Profile" className="w-10 h-10 rounded-md me-4 object-cover" />
                                             )}
                                             {admin.name}
                                         </td>

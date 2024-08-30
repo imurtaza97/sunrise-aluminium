@@ -184,7 +184,7 @@ export default function Home() {
               {services.map((service, index) => (
                 <div key={index} className="max-w-sm bg-white rounded-lg shadow min-w-96 m-5">
                   <a href={service.link}>
-                    <img className="rounded-t-lg w-full h-80 object-cover" src={service.imgSrc} alt={service.title} />
+                    <Image className="rounded-t-lg w-full h-80 object-cover" src={service.imgSrc} alt={service.title} />
                   </a>
                   <div className="p-5">
                     <a href={service.link}>

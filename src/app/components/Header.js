@@ -1,6 +1,7 @@
 'use client'; // Add this at the top to mark the component as a Client Component
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
     const images = [
@@ -26,13 +27,13 @@ const Header = () => {
         const interval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
 
         return () => clearInterval(interval); // Clear the interval on component unmount
-    }, []);
+    }, [nextSlide]);
     return (
         <header>
             <nav id='Home' className="bg-white border-gray-200 font-sans fixed z-30 w-full drop-shadow">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/images/bg_sun.png" className="h-8" alt="Flowbite Logo" />
+                        <Image src="/images/bg_sun.png" className="h-8" alt="Flowbite Logo" />
                         <span className='flex flex-col text-center text-orange-950 font-serif'>
                             <p className='text-lg font-medium leading-none uppercase m-0'>Sunrise</p>
                             <p className='text-xs font-normal leading-none uppercase m-0'>Aluminium</p>
@@ -70,13 +71,13 @@ const Header = () => {
                 <div className="relative w-full h-screen overflow-hidden">
                     {images.map((image, index) => (
                         <div key={index} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-                            <img src={image} className="block w-full h-full object-cover" alt={`Slide ${index + 1}`} />
+                            <Image src={image} className="block w-full h-full object-cover" alt={`Slide ${index + 1}`} />
                         </div>
                     ))}
                     {/* Welcome Message */}
                     <div className="absolute inset-0 flex items-center justify-center text-center">
                         <h1 className="text-4xl md:text-5xl max-w-4xl font-bold text-white bg-slate-400 bg-opacity-50 p-4 rounded-lg">
-                            "Welcome to Sunrise Aluminium" Your Trusted Partner for Aluminium Section and Glass Solutions
+                        &quot;Welcome to Sunrise Aluminium&quot; Your Trusted Partner for Aluminium Section and Glass Solutions
                         </h1>
                     </div>
                 </div>
