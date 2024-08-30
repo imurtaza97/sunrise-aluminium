@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Alert from './components/Alert';
 import axios from 'axios';
+import Image from 'next/image';
 
 export default function Home() {
   const [formData, setFormData] = useState({
