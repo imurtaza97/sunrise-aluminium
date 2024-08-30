@@ -176,7 +176,7 @@ const AdminLayout = ({ children }) => {
                                     <button ref={userButtonRef} type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300" onClick={handleUserMenuOpen}>
                                         <span className="sr-only">Open user menu</span>
                                         {profileImage ? (
-                                            <img src={profileImage} alt="Profile" className="w-10 h-10 rounded-full object-cover" />
+                                            <Image src={profileImage} alt="Profile" className="w-10 h-10 rounded-full object-cover" />
                                         ) : (
                                             <span className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center  text-lg">
                                                 {userData?.name?.charAt(0) || 'A'}
@@ -311,7 +311,11 @@ const AdminLayout = ({ children }) => {
                         </li>
                         <li>
                             <Link href="/admin/users" className="flex items-center px-4 py-2 text-md group font-normal rounded-md hover:bg-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round">
+                                    <path d="M18 20a6 6 0 0 0-12 0" />
+                                    <circle cx="12" cy="10" r="4" />
+                                    <circle cx="12" cy="12" r="10" />
+                                </svg>
                                 <span className="ms-3">Users</span>
                             </Link>
                         </li>
