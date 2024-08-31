@@ -24,6 +24,7 @@ const AdminLayout = ({ children }) => {
     const [isNotificationMenuOpen, setIsNotificationMenuOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0); // State to track unread notifications
+    const [alert, setAlert] = useState(null);
 
     const searchRef = useRef(null);
     const userMenuRef = useRef(null);
@@ -32,21 +33,24 @@ const AdminLayout = ({ children }) => {
     const notificationRef = useRef(null);
     const notificationButtonRef = useRef(null);
 
+    const handleCloseAlert = () => {
+        setAlert(null);
+    };
+
     useEffect(() => {
         const socket = io("http://localhost:4000");
 
         socket.on('connect', () => {
-            console.log(`Connected to server`);
+            setAlert({ type: 'success', message: 'Connected to Server' });
         });
 
         socket.on('notification', (data) => {
-            console.log(`Notification from server`);
             setNotifications(prevNotifications => [...prevNotifications, data]);
             setUnreadCount(prevCount => prevCount + 1);
         });
 
         socket.on('disconnect', () => {
-            console.log(`Disconnected from server`);
+            setAlert({ type: 'danger', message: 'Disconnect from Server' });
         });
 
         // Cleanup the socket connection when the component unmounts
@@ -102,10 +106,11 @@ const AdminLayout = ({ children }) => {
                     setUserData(data.user);
                     setprofileImage(data.user.image);
                 } else {
-                    console.error('Failed to fetch user details');
+                    window.location.href = '/admin'; // Redirect to login page or wherever needed
+                    setAlert({ type: 'danger', message: 'Failed to Fatch user Details.' });
                 }
             } catch (error) {
-                console.error('Error fetching user details:', error);
+                setAlert({ type: 'danger', message: `Error fetching user details: ${error}` });
             }
         };
 
@@ -119,10 +124,10 @@ const AdminLayout = ({ children }) => {
             if (response.ok) {
                 window.location.href = '/admin'; // Redirect to login page or wherever needed
             } else {
-                console.error('Logout failed');
+                setAlert({ type: 'danger', message: `Logout Failed` });
             }
         } catch (error) {
-            console.error('Error during logout:', error);
+            setAlert({ type: 'danger', message: `Error: ${error}` });
         }
     };
 
@@ -138,10 +143,11 @@ const AdminLayout = ({ children }) => {
                 const data = await response.json();
                 setSearchResults(data.results);
             } else {
-                console.error('Search failed');
+                setAlert({ type: 'danger', message: `Search Failed` });
+
             }
         } catch (error) {
-            console.error('Error during search:', error);
+            setAlert({ type: 'danger', message: `Error during search: ${error}` });
         }
     };
 
@@ -176,7 +182,7 @@ const AdminLayout = ({ children }) => {
                                     <button ref={userButtonRef} type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300" onClick={handleUserMenuOpen}>
                                         <span className="sr-only">Open user menu</span>
                                         {profileImage ? (
-                                            <Image src={profileImage} alt="Profile" className="w-10 h-10 rounded-full object-cover" />
+                                            <Image src={profileImage} alt="Profile" width={200} height={200} className="w-10 h-10 rounded-full object-cover" />
                                         ) : (
                                             <span className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center  text-lg">
                                                 {userData?.name?.charAt(0) || 'A'}

@@ -36,7 +36,6 @@ export async function PUT(req) {
 
         return NextResponse.json({ message: 'Details updated successfully', admin: result }, { status: 200 });
     } catch (error) {
-        console.error('Error updating admin:', error);
         return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
 }

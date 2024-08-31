@@ -6,8 +6,6 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('query') || '';
 
-    console.log('Search query:', query); // Debugging: Log the search query
-
     try {
         const regex = new RegExp(query, 'i');
 
@@ -22,7 +20,6 @@ export async function GET(request) {
 
         // Test contact results with a static query
         const staticContactResults = await Contact.find({ name: 'Marie Hozze' });
-        console.log('Static Contact Results:', staticContactResults);
 
         const adminResults = await Admin.find({
             $or: [
@@ -30,10 +27,6 @@ export async function GET(request) {
                 { email: regex }
             ]
         });
-
-        console.log('Contact Results:', contactResults); // Debugging: Log results
-        console.log('Admin Results:', adminResults); // Debugging: Log results
-
         const results = [
             ...contactResults.map(contact => ({ ...contact.toObject(), type: 'contact' })),
             ...adminResults.map(admin => ({ ...admin.toObject(), type: 'admin' }))
@@ -41,7 +34,6 @@ export async function GET(request) {
 
         return NextResponse.json({ results });
     } catch (error) {
-        console.error('Error searching database:', error);
         return NextResponse.error();
     }
 }

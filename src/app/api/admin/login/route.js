@@ -60,7 +60,6 @@ export async function POST(req) {
     response.headers.append('Set-Cookie', serializedCookie);
     return response;
   } catch (error) {
-    console.error('Error during login:', error); // Add detailed logging
     return NextResponse.json(
       { error: 'An error occurred while logging in.' },
       { status: 500 }

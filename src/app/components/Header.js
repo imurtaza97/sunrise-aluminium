@@ -33,7 +33,7 @@ const Header = () => {
             <nav id='Home' className="bg-white border-gray-200 font-sans fixed z-30 w-full drop-shadow">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image src="/images/bg_sun.png" className="h-8" alt="Flowbite Logo" />
+                        <Image src="/images/bg_sun.png"  height={200} width={200}  className="h-8" alt="Flowbite Logo" />
                         <span className='flex flex-col text-center text-orange-950 font-serif'>
                             <p className='text-lg font-medium leading-none uppercase m-0'>Sunrise</p>
                             <p className='text-xs font-normal leading-none uppercase m-0'>Aluminium</p>
@@ -71,7 +71,7 @@ const Header = () => {
                 <div className="relative w-full h-screen overflow-hidden">
                     {images.map((image, index) => (
                         <div key={index} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}>
-                            <Image src={image} className="block w-full h-full object-cover" alt={`Slide ${index + 1}`} />
+                            <Image src={image} className="block w-full h-full object-cover"  height={1000} width={1000}  alt={`Slide ${index + 1}`} />
                         </div>
                     ))}
                     {/* Welcome Message */}

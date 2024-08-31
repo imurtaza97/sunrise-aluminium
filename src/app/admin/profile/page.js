@@ -27,23 +27,36 @@ const Profile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+
+    if (file && (file instanceof Blob || file instanceof File)) {
       const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
       if (!validTypes.includes(file.type)) {
         setAlert({ type: 'danger', message: 'Only PNG, JPG, or JPEG images are allowed.' });
         setSelectedImage(null);
         return;
       }
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
+
+      const img = new window.Image();
+      const fileURL = URL.createObjectURL(file);
+      img.src = fileURL;
+
       img.onload = () => {
         if (img.width > 800 || img.height > 400) {
           setAlert({ type: 'danger', message: 'Image dimensions should not exceed 800x400px.' });
           setSelectedImage(null);
+          URL.revokeObjectURL(fileURL); // Clean up the object URL
         } else {
-          setSelectedImage(file);
+          setSelectedImage({
+            file,
+            url: fileURL,
+            width: img.width,
+            height: img.height,
+          });
         }
       };
+    } else {
+      setAlert({ type: 'danger', message: 'Please select a valid image file.' });
+      setSelectedImage(null);
     }
   };
 
@@ -55,7 +68,7 @@ const Profile = () => {
     }
 
     const data = new FormData();
-    data.set('ProfileImage', selectedImage);
+    data.set('ProfileImage', selectedImage.file);
 
     try {
       const response = await fetch('/api/updateProfileImage', {
@@ -184,14 +197,18 @@ const Profile = () => {
             <div className='w-full flex justify-center'>
               {selectedImage ? (
                 <Image
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="Profile"
+                  src={selectedImage.url}
+                  alt="Selected Profile"
+                  width={500} // specify a width
+                  height={300} // specify a height
                   className="w-24 h-24 rounded-full object-cover"
                 />
               ) : existingImage ? (
                 <Image
                   src={existingImage}
-                  alt="Profile"
+                  alt="Existing Profile"
+                  width={500} // specify a width
+                  height={300} // specify a height
                   className="w-24 h-24 rounded-full object-cover"
                 />
               ) : (

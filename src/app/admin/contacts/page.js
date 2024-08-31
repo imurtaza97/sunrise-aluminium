@@ -69,7 +69,6 @@ const Contacts = () => {
   };
 
   const handleDeleteMessage = async (id) => {
-    console.log(`Deleting message with ID: ${id}`);
     try {
       const response = await fetch(`/api/contact/deleteContact/${id}`, {
         method: 'DELETE',

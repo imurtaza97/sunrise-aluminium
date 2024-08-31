@@ -247,7 +247,7 @@ const Users = () => {
                                             {!admin.image ? (<span className="w-10 h-10 me-4 font-extralight rounded-md bg-gray-700 text-gray-100 flex items-center justify-center text-sm">
                                                 {admin.name.charAt(0) || 'A'}
                                             </span>) : (
-                                                <Image src={admin.image} alt="Profile" className="w-10 h-10 rounded-md me-4 object-cover" />
+                                                <Image src={admin.image} alt="Profile" width={200} height={200} className="w-10 h-10 rounded-md me-4 object-cover" />
                                             )}
                                             {admin.name}
                                         </td>

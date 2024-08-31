@@ -10,7 +10,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.SERVER_PORT || 4000;
 
 app.prepare().then(() => {
     const server = express();
@@ -28,10 +28,7 @@ app.prepare().then(() => {
 
     // Socket.IO connection
     io.on('connection', (socket) => {
-        console.log(`⚡: ${socket.id} user just connected!`);
-
         socket.on('disconnect', () => {
-            console.log('🔥: A user disconnected');
         });
     });
 
@@ -39,7 +36,6 @@ app.prepare().then(() => {
     server.post("/api", (req, res) => {
         const { name, message } = req.body;
         io.emit('notification', { name, message });
-        console.log(name, message);
         res.status(200).json({ name, message });
     });
 
@@ -51,7 +47,6 @@ app.prepare().then(() => {
     // Start the server
     httpServer.listen(PORT, (err) => {
         if (err) throw err;
-        console.log(`Server listening on http://localhost:${PORT}`);
     });
 });
 

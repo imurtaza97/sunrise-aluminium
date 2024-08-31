@@ -58,7 +58,6 @@ export async function POST(req) {
 
         return NextResponse.json({ "message": "File saved and admin updated successfully", success: true });
     } catch (error) {
-        console.error('Error processing file:', error);
         return NextResponse.json({ "message": "An error occurred", success: false, error: error.message });
     }
 }
