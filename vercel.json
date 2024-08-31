@@ -1,0 +1,14 @@
+{
+    "headers": [
+      {
+        "source": "/profileImage/(.*)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  }
+  
