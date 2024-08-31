@@ -52,8 +52,9 @@ export async function POST(req) {
         const buffer = Buffer.from(byteData);
         await writeFile(filePath, buffer);
 
-        // Update the Admin model with the new image path
-        const imagePath = `/profileImage/${newFileName}`; // Relative path to save in DB
+        // Update the Admin model with the new image path including a cache-busting query parameter
+        const timestamp = new Date().getTime();
+        const imagePath = `/profileImage/${newFileName}?v=${timestamp}`; // Relative path to save in DB with cache busting
         await Admin.findByIdAndUpdate(userId, { image: imagePath });
 
         return NextResponse.json({ "message": "File saved and admin updated successfully", success: true });
