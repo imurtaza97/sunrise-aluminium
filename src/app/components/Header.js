@@ -33,7 +33,7 @@ const Header = () => {
             <nav id='Home' className="bg-white border-gray-200 font-sans fixed z-30 w-full drop-shadow">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <Image src="/images/bg_sun.png"  height={200} width={200}  className="h-8" alt="Flowbite Logo" />
+                        <Image src="/images/bg_sun.png"  height={50} width={50}  className="h-8" alt="Flowbite Logo" />
                         <span className='flex flex-col text-center text-orange-950 font-serif'>
                             <p className='text-lg font-medium leading-none uppercase m-0'>Sunrise</p>
                             <p className='text-xs font-normal leading-none uppercase m-0'>Aluminium</p>
