@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminLayout from '../dashboardLayout'
+import { BetaAnalyticsDataClient } from '@google-analytics/data';
 
 const Dashboard = () => {
   return (
