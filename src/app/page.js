@@ -153,7 +153,7 @@ export default function Home() {
       const data = await response.json();
       if (response.ok) {
 
-        await axios.post("http://localhost:4000/api", {
+        await axios.post("https://sunriseserver.onrender.com/api", {
           type: "contact message",
           name: formData.name,
           message: formData.message

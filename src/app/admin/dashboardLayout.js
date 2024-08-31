@@ -38,7 +38,7 @@ const AdminLayout = ({ children }) => {
     };
 
     useEffect(() => {
-        const socket = io("http://localhost:4000");
+        const socket = io("https://sunriseserver.onrender.com");
 
         socket.on('connect', () => {
             setAlert({ type: 'success', message: 'Connected to Server' });
