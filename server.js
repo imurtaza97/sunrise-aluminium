@@ -17,7 +17,7 @@ app.prepare().then(() => {
     const httpServer = http.createServer(server);
     const io = socketIO(httpServer, {
         cors: {
-            origin: "*", // Update this with your frontend URL
+            origin: "https://sunrisealuminium.vercel.app/admin/dashboard", // Update this with your frontend URL
         },
     });
 

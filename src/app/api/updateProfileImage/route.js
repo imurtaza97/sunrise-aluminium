@@ -1,3 +1,5 @@
+// pages/api/updateProfileImage.js
+
 import { NextResponse } from 'next/server';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
