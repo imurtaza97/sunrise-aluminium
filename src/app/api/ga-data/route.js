@@ -3,8 +3,12 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
     try {
-        const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
-        
+        const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+
+        if (!privateKey) {
+            throw new Error('GOOGLE_PRIVATE_KEY is not defined');
+        }
+
         const auth = new google.auth.GoogleAuth({
             credentials: {
                 type: 'service_account',

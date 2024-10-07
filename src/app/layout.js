@@ -6,8 +6,8 @@ import { UserProvider } from "@/context/UserContext";
 
 const GA_TRACKING_ID = 'G-WMS0YMKF8R';
 export const metadata = {
-  title: "Sunrise Aluminium",
-  description: "",
+  title: "Sunrise Aluminium - Viramgam",
+  description: "Sunrise Aluminium offers premium aluminum sections and glass work around viramgam and ahmedabad,Guajrat.",
   icons: {
     icon: "/images/bg_sun.png",
   },
