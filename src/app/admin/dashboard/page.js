@@ -99,7 +99,7 @@ const Dashboard = () => {
     },
     elements: {
       point: {
-        radius: 0, // Remove the points on the line
+        radius: 1, // Remove the points on the line
       },
       line: {
         tension: 0.1, // Smooth out the line (optional)
