@@ -73,8 +73,6 @@ const Dashboard = () => {
           topCountry: '-',
           topCity: '-',
         });
-      } finally {
-        setLoading(false);
       }
     }
 
