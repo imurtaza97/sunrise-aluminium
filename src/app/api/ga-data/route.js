@@ -40,7 +40,7 @@ export async function GET() {
                     },
                 ],
                 metrics: [
-                    { name: 'totalUsers' },
+                    { name: 'active28DayUsers' },
                     { name: 'active1dayUsers' },
                 ],
                 dimensions: [
