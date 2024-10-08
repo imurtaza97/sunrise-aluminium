@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import Contact from '@/models/contact'; // Ensure correct import path and casing
+import Contact from '@/models/UserContact'; // Ensure correct import path and casing
 import Admin from '@/models/admin'; // Ensure correct import path and casing
 
 export async function GET(request) {
