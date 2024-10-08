@@ -23,7 +23,6 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        setLoading(true);
         const [dataResponse, chartResponse] = await Promise.all([
           fetch('/api/ga-data'),
           fetch('/api/ga-chart-data')
