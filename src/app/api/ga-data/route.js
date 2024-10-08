@@ -52,7 +52,7 @@ export async function GET() {
 
         return NextResponse.json(response.data);
     } catch (error) {
-        console.error('Error fetching Google Analytics data:', error.message); // Log the error
+        console.error('Error fetching Google Analytics data:', error); // Log the full error
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
