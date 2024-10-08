@@ -1,6 +1,6 @@
 import { NextApiRequest, NextResponse } from 'next/server';
 import dbConnect from "@/lib/dbConnect";
-import Contact from "@/models/contact";
+import Contact from "@/models/UserContact";
 
 export async function DELETE(req) {
     try {

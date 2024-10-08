@@ -23,37 +23,41 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchData() {
       try {
+        // Fetch data from both endpoints concurrently
         const [dataResponse, chartResponse] = await Promise.all([
           fetch('/api/ga-data'),
           fetch('/api/ga-chart-data')
         ]);
   
-        // Check responses
+        // Check if responses are okay
         if (!dataResponse.ok || !chartResponse.ok) {
           throw new Error(`Error fetching data: ${dataResponse.status}, ${chartResponse.status}`);
         }
   
+        // Parse the responses as JSON
         const result = await dataResponse.json();
         const chartResult = await chartResponse.json();
   
-        if (result.rows && result.rows.length > 0) {
-          const totalUsers = result.rows[0].metricValues[0]?.value || '0';
-          const totalUsersToday = result.rows[0].metricValues[1]?.value || '0';
-          const topCountry = result.rows[0].dimensionValues[0]?.value || '-';
-          const topCity = result.rows[0].dimensionValues[1]?.value || '-';
-          setData({ totalUsers, totalUsersToday, topCountry, topCity });
-        }
+        // Update state with fetched data
+        const totalUsers = result.allTimeSessions || '0';
+        const totalUsersToday = result.last24HoursSessions || '0';
+        const topCountry = result.topVisitedCountry || '-';
+        const topCity = result.topVisitedCity || '-';
   
-        // Prepare chart data
+        setData({ totalUsers, totalUsersToday, topCountry, topCity });
+  
+        // Process chartResult to get active users per month or day
         const userData = chartResult.reduce((acc, item) => {
           acc[item.date] = item.activeUsers;
           return acc;
         }, {});
   
+        // Generate dataset for the chart
         const dataset = allMonths.map((_, index) => userData[String(index + 1).padStart(2, '0')] || 0);
   
+        // Set chart data in the state
         setChartData({
-          labels: allMonths,
+          labels: allMonths,  // You can change this to your desired label format (e.g., daily, monthly, etc.)
           datasets: [
             {
               label: 'Active Users',
@@ -65,7 +69,9 @@ const Dashboard = () => {
           ],
         });
       } catch (err) {
+        // Handle error and show an alert message
         setAlert({ type: 'danger', message: err.message });
+        // Reset data in case of failure
         setData({
           totalUsers: '0',
           totalUsersToday: '0',
@@ -74,9 +80,11 @@ const Dashboard = () => {
         });
       }
     }
-
+  
+    // Fetch data on component mount
     fetchData();
   }, []);
+  
 
   const allMonths = [
     "January", "February", "March", "April", "May", "June",
@@ -99,7 +107,7 @@ const Dashboard = () => {
     },
     elements: {
       point: {
-        radius: 1, // Remove the points on the line
+        radius: 2, // Remove the points on the line
       },
       line: {
         tension: 0.1, // Smooth out the line (optional)

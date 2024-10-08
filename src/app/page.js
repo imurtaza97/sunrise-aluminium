@@ -10,6 +10,7 @@ export default function Home() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
   const [responseMessage, setResponseMessage] = useState('');
@@ -160,7 +161,7 @@ export default function Home() {
         });
 
         setAlert({ type: 'success', message: 'Message sent successfully!' });
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', message: '' });
       } else {
         setAlert({ type: 'danger', message: data.error || 'Something went wrong!' });
       }
@@ -197,20 +198,20 @@ export default function Home() {
               ))}
             </div>
             <button
-              onClick={scrollRight}
-              type="button"
-              aria-label="Scroll Right"
-              className='flex justify-center items-center absolute top-1/2 right-0 w-10 h-10 bg-gray-500 bg-opacity-50 m-2 rounded-full text-white'
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
-            </button>
-            <button
               onClick={scrollLeft}
               type="button"
               aria-label="Scroll Left"
               className='flex justify-center items-center absolute top-1/2 left-0 w-10 h-10 bg-gray-500 bg-opacity-50 m-2 rounded-full text-white'
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
+            </button>
+            <button
+              onClick={scrollRight}
+              type="button"
+              aria-label="Scroll Right"
+              className='flex justify-center items-center absolute top-1/2 right-0 w-10 h-10 bg-gray-500 bg-opacity-50 m-2 rounded-full text-white'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
             </button>
           </div>
         </section>
@@ -238,7 +239,7 @@ export default function Home() {
               <input
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Name"
                 className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 value={formData.name}
                 onChange={handleChange}
@@ -249,15 +250,30 @@ export default function Home() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Your Email"
+                placeholder="Email"
                 className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required
+              />
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={(e) => {
+                  // Filter out non-numeric characters
+                  const value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                  handleChange({ target: { name: 'phone', value } });
+                }}
+                placeholder="Mobile Number"
+                className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                maxLength="10"
+                pattern="[0-9]*"
                 required
               />
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Your Message"
+                placeholder="Message"
                 className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 rows="5"
                 required

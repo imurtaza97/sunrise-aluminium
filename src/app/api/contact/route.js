@@ -1,20 +1,21 @@
 import { NextApiRequest, NextResponse } from 'next/server';
 import dbConnect from "@/lib/dbConnect";
-import Contact from "@/models/contact";
+import Contact from "@/models/UserContact";
 
 export async function POST(req) {
     try {
         await dbConnect();
-        const { name, email, message } = await req.json();
+        const { name, phone, email, message } = await req.json();
 
-        if (!name || !email || !message) {
+        if (!name || !phone || !email || !message) {
             return NextResponse.json(
-                { error: 'Name, email, and message are all required fields.' },
+                { error: 'All fields are required.' },
                 { status: 400 }
             );
         }
 
-        const newContact = new Contact({ name, email, message });
+        const newContact = new Contact({ name, phone, email, message });
+        console.log(newContact);
         await newContact.save();
 
         return NextResponse.json(
@@ -29,6 +30,7 @@ export async function POST(req) {
         );
     }
 }
+
 export async function GET(req) {
     try {
         await dbConnect();

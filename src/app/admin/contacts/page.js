@@ -16,6 +16,7 @@ const Contacts = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
+
         setContacts(data);
       } catch (error) {
         throw new Error('Failed to fetch contacts.');
@@ -24,7 +25,7 @@ const Contacts = () => {
 
     fetchContacts();
   }, []);
-
+  console.log()
   const handleMessageEdit = (event, id) => {
     event.stopPropagation();
     setOpenMessageId((prevId) => (prevId === id ? null : id)); // Toggle openMessageId
@@ -131,6 +132,7 @@ const Contacts = () => {
                   <div className="flex items-center text-start space-x-2 rtl:space-x-reverse">
                     <div className='flex flex-col'>
                       <span className="text-sm font-medium text-white">{contact.name}</span>
+                      <span className="text-sm font-medium text-gray-500">{contact.phone}</span>
                       <span className="text-sm font-medium text-gray-500">{contact.email}</span>
                     </div>
                   </div>

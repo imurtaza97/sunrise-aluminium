@@ -35,12 +35,12 @@ export async function GET() {
             requestBody: {
                 dateRanges: [
                     {
-                        startDate: '2024-08-01',
+                        startDate: '2024-01-01',
                         endDate: 'today',
                     },
                 ],
                 metrics: [
-                    { name: 'activeUsers' },
+                    { name: 'sessions' },
                 ],
                 dimensions: [
                     { name: 'month' },

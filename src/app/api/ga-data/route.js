@@ -30,27 +30,57 @@ export async function GET() {
             auth,
         });
 
-        const response = await analyticsDataClient.properties.runReport({
+        // Set the start date for all-time sessions (e.g., when the site went live)
+        const siteLaunchDate = '2024-01-01'; // Replace with the actual launch date
+
+        // Fetch all-time sessions
+        const allTimeSessionsResponse = await analyticsDataClient.properties.runReport({
             property: 'properties/456645998', // Replace with your GA4 property ID
             requestBody: {
                 dateRanges: [
                     {
-                        startDate: '2024-08-01',
+                        startDate: siteLaunchDate,
                         endDate: 'today',
                     },
                 ],
-                metrics: [
-                    { name: 'active28DayUsers' },
-                    { name: 'active1dayUsers' },
-                ],
-                dimensions: [
-                    { name: 'country' },
-                    { name: 'city' },
-                ]
+                metrics: [{ name: 'sessions' }],
             },
         });
 
-        return NextResponse.json(response.data);
+        // Fetch sessions in the last 24 hours (yesterday to today)
+        const last24HoursSessionsResponse = await analyticsDataClient.properties.runReport({
+            property: 'properties/456645998', // Replace with your GA4 property ID
+            requestBody: {
+                dateRanges: [
+                    {
+                        startDate: 'yesterday',
+                        endDate: 'today',
+                    },
+                ],
+                metrics: [{ name: 'sessions' }],
+                dimensions: [
+                    { name: 'country' },
+                    { name: 'city' },
+                ],
+            },
+        });
+
+        const allTimeSessions = allTimeSessionsResponse.data.rows?.[0]?.metricValues?.[0]?.value || 0;
+        const last24HoursSessions = last24HoursSessionsResponse.data.rows?.reduce((acc, row) => acc + parseInt(row.metricValues[0].value, 10), 0) || 0;
+
+        // Top visited country and city in the last 24 hours
+        const topVisitedCountry = last24HoursSessionsResponse.data.rows?.[0]?.dimensionValues?.[0]?.value || 'Unknown';
+        const topVisitedCity = last24HoursSessionsResponse.data.rows?.[0]?.dimensionValues?.[1]?.value || 'Unknown';
+
+        console.log(allTimeSessions,last24HoursSessions,topVisitedCity,topVisitedCountry);
+        
+        return NextResponse.json({
+            allTimeSessions,
+            last24HoursSessions,
+            topVisitedCountry,
+            topVisitedCity,
+        });
+
     } catch (error) {
         console.error('Error fetching Google Analytics data:', error); // Log the error
         return NextResponse.json({ error: error.message }, { status: 500 });
