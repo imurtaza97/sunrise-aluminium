@@ -102,7 +102,7 @@ const Dashboard = () => {
         radius: 0, // Remove the points on the line
       },
       line: {
-        tension: 0.3, // Smooth out the line (optional)
+        tension: 0.1, // Smooth out the line (optional)
       },
     },
     plugins: {
