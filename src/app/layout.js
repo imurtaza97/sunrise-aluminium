@@ -8,6 +8,8 @@ const GA_TRACKING_ID = 'G-WMS0YMKF8R';
 export const metadata = {
   title: "Sunrise Aluminium - Viramgam",
   description: "Sunrise Aluminium offers premium aluminum sections and glass work around viramgam and ahmedabad.",
+  keywords:"Sunrise Aluminium, Aluminium Section, Glass work, Aluminium Section supplier, Aluminium Section Near Ahmedabad, Aluminium Section Near Viramgam, Aluminium Section in Viramgam, Ahmedabad, Sanand, Mandal, Detroj, Dasada, Surendranagar, Gujarat,",
+  
   icons: {
     icon: "/images/bg_sun.png",
   },
